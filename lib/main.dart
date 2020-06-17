@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Color Code',
       routes: <String, WidgetBuilder>{
-        '/': (_) => new Main(),
-        '/setting': (_) => new Setting()
+        '/': (_) => Main(),
+        '/setting': (_) => Setting()
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
