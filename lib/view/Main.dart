@@ -16,10 +16,14 @@ class _MainState extends State<Main> {
   var _ratingG = INIT_COLOR;
   var _ratingB = INIT_COLOR;
 
-  String _colorCodeHex;
+  String _colorCodeHex = "";
+  TextEditingController _controller;
 
   @override
   Widget build(BuildContext context) {
+    _controller = TextEditingController();
+    setColorCodeHex(_ratingR, _ratingG, _ratingB);
+    _colorCodeHex = _controller.text = "#" + _colorCodeHex;
     return MaterialApp(
         theme: ThemeData(
           canvasColor: Color.fromARGB(
@@ -33,7 +37,12 @@ class _MainState extends State<Main> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("#$_colorCodeHex"),
+                TextFormField(
+                  controller: _controller,
+                  onChanged: (e) {
+                    setState(() => );
+                  },
+                ),
                 Text('R : $_ratingR'),
                 Slider(
                   value: _ratingR,
@@ -83,8 +92,20 @@ class _MainState extends State<Main> {
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
-    _colorCodeHex = _ratingR.toInt().toRadixString(HEX) +
-        _ratingG.toInt().toRadixString(HEX) +
-        _ratingB.toInt().toRadixString(HEX);
+    setColorCodeHex(_ratingR, _ratingG, _ratingB);
+  }
+
+  void setColorCodeHex(double r, double g, double b) {
+    _colorCodeHex = decimalToHex(r.toInt()) +
+        decimalToHex(g.toInt()) +
+        decimalToHex(b.toInt());
+  }
+
+  String decimalToHex(int decimal) {
+    String hex = decimal.toRadixString(HEX);
+    if (hex.length == 1) {
+      hex = "0" + hex;
+    }
+    return hex;
   }
 }
