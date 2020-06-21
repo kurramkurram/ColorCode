@@ -9,12 +9,14 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  var _ratingR = 255.0;
-  var _ratingG = 255.0;
-  var _ratingB = 255.0;
+  static const double INIT_COLOR = 255.0;
+  static const int HEX = 16;
 
-  Scaffold _scaffold;
-  Positioned _positioned;
+  var _ratingR = INIT_COLOR;
+  var _ratingG = INIT_COLOR;
+  var _ratingB = INIT_COLOR;
+
+  String _colorCodeHex;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class _MainState extends State<Main> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Text("#$_colorCodeHex"),
                 Text('R : $_ratingR'),
                 Slider(
                   value: _ratingR,
@@ -80,5 +83,8 @@ class _MainState extends State<Main> {
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
+    _colorCodeHex = _ratingR.toInt().toRadixString(HEX) +
+        _ratingG.toInt().toRadixString(HEX) +
+        _ratingB.toInt().toRadixString(HEX);
   }
 }
