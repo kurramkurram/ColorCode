@@ -23,7 +23,7 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     _controller = TextEditingController();
     setColorCodeHex(_ratingR, _ratingG, _ratingB);
-    _colorCodeHex = _controller.text = "#" + _colorCodeHex;
+    _controller.text = _colorCodeHex;
     return MaterialApp(
         theme: ThemeData(
           canvasColor: Color.fromARGB(
@@ -40,7 +40,9 @@ class _MainState extends State<Main> {
                 TextFormField(
                   controller: _controller,
                   onChanged: (e) {
-                    setState(() => );
+                    setState(() {
+                      updateColor(e);
+                    });
                   },
                 ),
                 Text('R : $_ratingR'),
@@ -92,13 +94,22 @@ class _MainState extends State<Main> {
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
-    setColorCodeHex(_ratingR, _ratingG, _ratingB);
   }
 
   void setColorCodeHex(double r, double g, double b) {
     _colorCodeHex = decimalToHex(r.toInt()) +
         decimalToHex(g.toInt()) +
         decimalToHex(b.toInt());
+  }
+
+  void updateColor(String colorCode) {
+    colorCode = colorCode.toUpperCase();
+    bool isMatch = RegExp(r'[0-9A-F]{6}').hasMatch(colorCode);
+    if (isMatch) {
+      _ratingR = int.parse("0x" + colorCode.substring(0, 2)).toDouble();
+      _ratingG = int.parse("0x" + colorCode.substring(2, 4)).toDouble();
+      _ratingB = int.parse("0x" + colorCode.substring(4, 6)).toDouble();
+    }
   }
 
   String decimalToHex(int decimal) {
