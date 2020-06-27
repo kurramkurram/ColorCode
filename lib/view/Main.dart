@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Main extends StatefulWidget {
   @override
@@ -18,6 +19,8 @@ class _MainState extends State<Main> {
 
   String _colorCodeHex = "";
   TextEditingController _controller;
+
+  Map _map;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,17 @@ class _MainState extends State<Main> {
                   min: 0,
                   max: 255,
                   divisions: 255,
-                )
+                ),
+                OutlineButton(
+                  child: Text("Archive"),
+                  color: Colors.white,
+                  borderSide: BorderSide(color: Colors.black),
+                  onPressed: () {
+                    setState(() {
+                      _saveColorCode();
+                    });
+                  },
+                ),
               ],
             ),
           ),
@@ -115,6 +128,28 @@ class _MainState extends State<Main> {
     _ratingB = int.parse("0x" + colorCode.substring(4, 6)).toDouble();
   }
 
+  _saveColorCode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    int unixTime = DateTime.now().toUtc().millisecondsSinceEpoch;
+    prefs.setInt(_colorCodeHex, unixTime);
+  }
+
+  _getSavedColorCode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _map = {};
+    Set<String> keys = prefs.getKeys();
+    print("_getSavedColorCode ${keys.length}");
+    keys.forEach((element) {
+      _map[element] = prefs.get(element);
+    });
+  }
+
+  _clearColorCode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    print("_clearColorCode");
+  }
+
   String decimalToHex(int decimal) {
     String hex = decimal.toRadixString(HEX);
     if (hex.length == 1) {
@@ -122,4 +157,11 @@ class _MainState extends State<Main> {
     }
     return hex;
   }
+}
+
+class ColorCodeMap {
+  String _colorCode;
+  int _date;
+
+  ColorCodeMap(this._colorCode, this._date);
 }
