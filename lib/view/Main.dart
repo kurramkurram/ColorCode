@@ -27,6 +27,7 @@ class _MainState extends State<Main> {
     _controller = TextEditingController();
     setColorCodeHex(_ratingR, _ratingG, _ratingB);
     _controller.text = _colorCodeHex;
+    var contentWidgets = _makeListWidgets();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -86,6 +87,26 @@ class _MainState extends State<Main> {
                     });
                   },
                 ),
+                OutlineButton(
+                    child: Text("History"),
+                    color: Colors.white,
+                    borderSide: BorderSide(color: Colors.black),
+                    onPressed: () async {
+                      var result = showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return AlertDialog(
+                                title: Text("タイトル"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: contentWidgets,
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(onPressed: null, child: Text("はい"))
+                                ]);
+                          });
+                    }),
               ],
             ),
           ),
@@ -132,6 +153,7 @@ class _MainState extends State<Main> {
   }
 
   _getSavedColorCode() async {
+    // TODO asyncの処理後にダイアログ表示
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _map = {};
     Set<String> keys = prefs.getKeys();
@@ -154,11 +176,12 @@ class _MainState extends State<Main> {
     }
     return hex;
   }
-}
 
-class ColorCodeMap {
-  String _colorCode;
-  int _date;
-
-  ColorCodeMap(this._colorCode, this._date);
+  List<Widget> _makeListWidgets() {
+    var contentWidgets = List<Widget>();
+    _map.forEach((key, value) {
+      contentWidgets.add(Text(key));
+    });
+    return contentWidgets;
+  }
 }
