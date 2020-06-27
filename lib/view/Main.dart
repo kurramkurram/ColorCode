@@ -30,9 +30,6 @@ class _MainState extends State<Main> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
-            title: Text("Color Code"),
-          ),
           body: Container(
             color: Color.fromARGB(
                 255, _ratingR.toInt(), _ratingG.toInt(), _ratingB.toInt()),

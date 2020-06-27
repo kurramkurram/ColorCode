@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Color Code',
       routes: <String, WidgetBuilder>{
         '/': (_) => Main(),
         '/setting': (_) => Setting()
