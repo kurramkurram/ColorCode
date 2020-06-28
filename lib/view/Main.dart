@@ -92,6 +92,18 @@ class _MainState extends State<Main> {
                     color: Colors.white,
                     borderSide: BorderSide(color: Colors.black),
                     onPressed: () async {
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      setState(() {
+                        _map = {};
+                        Set<String> keys = prefs.getKeys();
+                        print("_getSavedColorCode ${keys.length}");
+                        keys.forEach((element) {
+                          _map[element] = prefs.get(element);
+                        });
+                        contentWidgets = _makeListWidgets();
+                      });
+
                       var result = showDialog(
                           context: context,
                           barrierDismissible: false,
@@ -103,7 +115,10 @@ class _MainState extends State<Main> {
                                   children: contentWidgets,
                                 ),
                                 actions: <Widget>[
-                                  FlatButton(onPressed: null, child: Text("はい"))
+                                  FlatButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: Text("cancel"))
                                 ]);
                           });
                     }),
@@ -111,9 +126,7 @@ class _MainState extends State<Main> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed("/setting");
-            },
+            onPressed: () => Navigator.of(context).pushNamed("/setting"),
             tooltip: 'Increment',
             child: Icon(Icons.settings),
           ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -153,7 +166,6 @@ class _MainState extends State<Main> {
   }
 
   _getSavedColorCode() async {
-    // TODO asyncの処理後にダイアログ表示
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _map = {};
     Set<String> keys = prefs.getKeys();
@@ -179,9 +191,14 @@ class _MainState extends State<Main> {
 
   List<Widget> _makeListWidgets() {
     var contentWidgets = List<Widget>();
-    _map.forEach((key, value) {
-      contentWidgets.add(Text(key));
-    });
+    if (_map != null) {
+      _map.forEach((key, value) {
+        contentWidgets.add(Container(
+          child: Text(key),
+          color: Color(int.parse("0xFF" + key)),
+        ));
+      });
+    }
     return contentWidgets;
   }
 }
