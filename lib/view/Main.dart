@@ -104,17 +104,20 @@ class _MainState extends State<Main> {
                         contentWidgets = _makeListWidgets();
                       });
 
-                      var result = showDialog(
+                      showDialog(
                           context: context,
                           barrierDismissible: false,
                           builder: (context) {
                             return AlertDialog(
-                                title: Text("タイトル"),
+                                title: Text("History"),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: contentWidgets,
                                 ),
                                 actions: <Widget>[
+                                  FlatButton(
+                                      onPressed: () => _clearColorCode(),
+                                      child: Text("clear")),
                                   FlatButton(
                                       onPressed: () =>
                                           Navigator.of(context).pop(),
@@ -191,13 +194,19 @@ class _MainState extends State<Main> {
 
   List<Widget> _makeListWidgets() {
     var contentWidgets = List<Widget>();
-    if (_map != null) {
+    if (_map != null && _map.length != 0) {
       _map.forEach((key, value) {
         contentWidgets.add(Container(
-          child: Text(key),
+          width: 200,
+          height: 30,
+          child: Text("#" + key),
           color: Color(int.parse("0xFF" + key)),
         ));
       });
+    } else {
+      contentWidgets.add(Container(
+        child: Text("No History"),
+      ));
     }
     return contentWidgets;
   }
