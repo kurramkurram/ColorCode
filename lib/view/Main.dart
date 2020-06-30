@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'HistoryListDialog.dart';
+
 class Main extends StatefulWidget {
   @override
   _MainState createState() => _MainState();
@@ -108,21 +110,7 @@ class _MainState extends State<Main> {
                           context: context,
                           barrierDismissible: false,
                           builder: (context) {
-                            return AlertDialog(
-                                title: Text("History"),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: contentWidgets,
-                                ),
-                                actions: <Widget>[
-                                  FlatButton(
-                                      onPressed: () => _clearColorCode(),
-                                      child: Text("clear")),
-                                  FlatButton(
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                      child: Text("cancel"))
-                                ]);
+                            return HistoryListDialog(contentWidgets);
                           });
                     }),
               ],
