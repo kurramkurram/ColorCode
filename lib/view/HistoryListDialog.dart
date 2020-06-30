@@ -1,3 +1,4 @@
+import 'package:colorcode/Preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,9 @@ class _HistoryListDialogState extends State<HistoryListDialog> {
           children: _contentWidgets,
         ),
         actions: <Widget>[
-//          FlatButton(onPressed: () => _clearColorCode(), child: Text("clear")),
+          FlatButton(
+              onPressed: () => Preference.clearColorCode(),
+              child: Text("clear")),
           FlatButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text("cancel"))

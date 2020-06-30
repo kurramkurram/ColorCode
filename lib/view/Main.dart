@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Preference.dart';
 import 'HistoryListDialog.dart';
 
 class Main extends StatefulWidget {
@@ -151,25 +152,8 @@ class _MainState extends State<Main> {
   }
 
   _saveColorCode() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
     int unixTime = DateTime.now().toUtc().millisecondsSinceEpoch;
-    prefs.setInt(_colorCodeHex, unixTime);
-  }
-
-  _getSavedColorCode() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _map = {};
-    Set<String> keys = prefs.getKeys();
-    print("_getSavedColorCode ${keys.length}");
-    keys.forEach((element) {
-      _map[element] = prefs.get(element);
-    });
-  }
-
-  _clearColorCode() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    print("_clearColorCode");
+    Preference.setColorCode(_colorCodeHex, unixTime);
   }
 
   String decimalToHex(int decimal) {
