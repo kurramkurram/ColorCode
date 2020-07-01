@@ -95,15 +95,8 @@ class _MainState extends State<Main> {
                     color: Colors.white,
                     borderSide: BorderSide(color: Colors.black),
                     onPressed: () async {
-                      final SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
                       setState(() {
-                        _map = {};
-                        Set<String> keys = prefs.getKeys();
-                        print("_getSavedColorCode ${keys.length}");
-                        keys.forEach((element) {
-                          _map[element] = prefs.get(element);
-                        });
+                        _map = Preference.getAllColorCode();
                         contentWidgets = _makeListWidgets();
                       });
 

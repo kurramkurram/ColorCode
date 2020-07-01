@@ -6,7 +6,6 @@ class HistoryListDialog extends StatefulWidget {
   var _contentWidgets;
 
   HistoryListDialog(var contentWidgets) {
-    print("HistoryListDialog");
     _contentWidgets = contentWidgets;
   }
 
@@ -19,7 +18,6 @@ class _HistoryListDialogState extends State<HistoryListDialog> {
   var _contentWidgets;
 
   _HistoryListDialogState(var contentWidgets) {
-    print("_HistoryListDialogState");
     _contentWidgets = contentWidgets;
   }
 

@@ -11,8 +11,17 @@ class Preference {
     return _prefsInstance;
   }
 
-  static String getString(String key, [String defValue]) {
-    return _prefsInstance.getString(key) ?? defValue ?? "";
+  static int getColorCode(String key, [int defValue]) {
+    return _prefsInstance.getInt(key) ?? defValue ?? "";
+  }
+
+  static Map getAllColorCode() {
+    Map map = {};
+    Set<String> keys = _prefsInstance.getKeys();
+    keys.forEach((element) {
+      map[element] = _prefsInstance.get(element);
+    });
+    return map;
   }
 
   static Future<bool> setColorCode(String key, int value) async {
