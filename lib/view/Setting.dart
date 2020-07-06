@@ -8,16 +8,37 @@ class Setting extends StatefulWidget {
 class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text("設定画面"),
+        title: Text("Settings"),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text('設定画面に遷移したよ')],
+          children: [
+            _ListItem("Application"),
+            _ListItem("Oss"),
+            _ListItem("PrivacyPolicy")
+          ],
         ),
       ),
     );
+  }
+
+  Widget _ListItem(String text) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
+      child: ListTile(
+          title: Text(
+            text,
+            style: TextStyle(color: Colors.black, fontSize: 18),
+          ),
+          onTap: () => _startActivity('/' + text)),
+    );
+  }
+
+  _startActivity(String component) {
+    print("_startActivity " + component);
+    Navigator.of(context).pushNamed(component);
   }
 }

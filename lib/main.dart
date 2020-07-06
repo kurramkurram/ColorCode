@@ -1,5 +1,8 @@
 import 'package:colorcode/Preference.dart';
+import 'package:colorcode/view/Application.dart';
 import 'package:colorcode/view/Main.dart';
+import 'package:colorcode/view/Oss.dart';
+import 'package:colorcode/view/PrivacyPolicy.dart';
 import 'package:colorcode/view/Setting.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +19,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/': (_) => Main(),
-        '/setting': (_) => Setting()
+        '/setting': (_) => Setting(),
+        '/Application': (_) => Application(),
+        '/Oss': (_) => Oss(),
+        '/PrivacyPolicy': (_) => PrivacyPolicy()
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
