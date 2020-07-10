@@ -1,3 +1,4 @@
+import 'package:colorcode/PackageInfo.dart';
 import 'package:colorcode/Preference.dart';
 import 'package:colorcode/view/Application.dart';
 import 'package:colorcode/view/Main.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Preference.init();
+    PackageInfoUtil.init();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{

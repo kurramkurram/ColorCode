@@ -38,7 +38,6 @@ class _SettingState extends State<Setting> {
   }
 
   _startActivity(String component) {
-    print("_startActivity " + component);
     Navigator.of(context).pushNamed(component);
   }
 }
