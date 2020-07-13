@@ -12,19 +12,23 @@ class _ApplicationState extends State<Application> {
   @override
   Widget build(BuildContext context) {
     String version = PackageInfoUtil().getAppVersion();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("About Application"),
-        ),
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(version),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("About Application"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Version ： " + version,
+              style: TextStyle(fontSize: 20),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 10),
+            ),
+            Image.asset("images/ic_launcher.png", height: 100, width: 100)
+          ],
         ),
       ),
     );
