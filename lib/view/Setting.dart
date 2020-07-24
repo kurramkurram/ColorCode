@@ -6,6 +6,10 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  static const oss = "OSS";
+  static const application = "Application";
+  static const privacyPolicy = "PrivacyPolicy";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +19,9 @@ class _SettingState extends State<Setting> {
       body: Center(
         child: Column(
           children: [
-            _ListItem("Application"),
-            _ListItem("Oss"),
-            _ListItem("PrivacyPolicy")
+            _ListItem(application),
+            _ListItem(oss),
+            _ListItem(privacyPolicy)
           ],
         ),
       ),
@@ -33,7 +37,17 @@ class _SettingState extends State<Setting> {
             text,
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
-          onTap: () => _startActivity('/' + text)),
+          onTap: () {
+            switch (text) {
+              case oss:
+                showLicensePage(context: context);
+                break;
+
+              default:
+                _startActivity("/" + text);
+                break;
+            }
+          }),
     );
   }
 

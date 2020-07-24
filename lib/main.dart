@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         '/': (_) => Main(),
         '/setting': (_) => Setting(),
         '/Application': (_) => Application(),
-        '/Oss': (_) => Oss(),
         '/PrivacyPolicy': (_) => PrivacyPolicy()
       },
       theme: ThemeData(
