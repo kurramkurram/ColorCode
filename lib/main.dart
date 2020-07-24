@@ -2,7 +2,6 @@ import 'package:colorcode/PackageInfo.dart';
 import 'package:colorcode/Preference.dart';
 import 'package:colorcode/view/Application.dart';
 import 'package:colorcode/view/Main.dart';
-import 'package:colorcode/view/Oss.dart';
 import 'package:colorcode/view/PrivacyPolicy.dart';
 import 'package:colorcode/view/Setting.dart';
 import 'package:flutter/material.dart';

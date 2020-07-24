@@ -1,7 +1,6 @@
 import 'package:colorcode/PackageInfo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
 
 class Application extends StatefulWidget {
   @override
